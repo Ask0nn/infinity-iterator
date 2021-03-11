@@ -2,13 +2,16 @@ package com.ask0n;
 
 import java.util.Iterator;
 import java.util.Random;
-import java.util.stream.IntStream;
 
 public class Randoms implements Iterable<Integer> {
-    private IntStream random;
+    private Random random;
+    private int min;
+    private int max;
 
     public Randoms(int min, int max) {
-        random = new Random().ints(min, max + 1);
+        random = new Random();
+        this.min = min;
+        this.max = max;
     }
 
     /**
@@ -25,7 +28,9 @@ public class Randoms implements Iterable<Integer> {
 
             @Override
             public Integer next() {
-                return random.findFirst().getAsInt();
+                return random.ints(min, max + 1)
+                        .findFirst()
+                        .getAsInt();
             }
         };
     }
